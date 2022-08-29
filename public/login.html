@@ -1,0 +1,56 @@
+<!--login.html-->
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login Page</title>
+
+    <!--CSS-->
+    <link rel="stylesheet" href="/jquery-ui/themes/base/jquery-ui.css">
+
+    <!--Javascript-->
+    <script src="/jquery/jquery.min.js"></script>
+    <script src="/jquery-ui/jquery-ui.min.js"></script>
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+          <h3>Login</h3>
+        </ul>
+        <div id="tabs-1"> 
+            <form id="my-form">
+                <input type="text" id="txtEmail" name="txtEmail" placeholder="Email" />
+                <br/>
+                <input type="password" id="txtPassword" name="txtPassword" placeholder="รหัสผ่าน" />
+                <br/>
+                <input type="button" id="btnSubmit" value="Submit"/>
+            </form>
+        </div>
+        
+        </div>
+    </div>
+    <script type="text/javascript">
+        //btnSubmit
+        $('#btnSubmit').click( function(){
+          $.ajax({
+            method: "POST",
+            url: "https://tools.ecpe.nu.ac.th/network/api/login",
+            dataType : 'json',
+            headers: { 
+              'Content-Type': 'application/json',
+              "Accepts": "application/json",
+            },
+            data:JSON.stringify( {"email": $('#txtEmail').val(), "password": $('#txtPassword').val() } ),
+            success: function(data){
+              console.log(data);
+              localStorage.setItem('srcToken',JSON.stringify(data.token))
+              window.open('/', '_self')
+            }
+          });
+
+        });
+
+   </script>
+</body>
+</html>
